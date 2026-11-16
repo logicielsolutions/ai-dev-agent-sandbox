@@ -18,7 +18,7 @@ class Reminder:
 def todays_reminders(reminders: list[Reminder], now: datetime | None = None) -> list[Reminder]:
     """Reminders that fall on today's date, earliest first. `now` is an aware datetime."""
     now = now or datetime.now(timezone.utc)
-    today = now.date()
+    today = tz.day_of(now)  # the IST date, not the UTC one
     return sorted((r for r in reminders if tz.day_of(r.at_utc) == today), key=lambda r: r.at_utc)
 
 
