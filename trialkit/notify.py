@@ -22,10 +22,10 @@ def next_send_time(moment: datetime) -> datetime:
     """When a ping queued at `moment` (aware) may go out, as aware UTC.
     Inside working hours it goes at once; otherwise at the next 09:00 IST on a weekday."""
     local = tz.to_ist(moment)
-    if local.weekday() >= 5:
+    if local.weekday() >= 5 or local.hour >= QUIET_FROM:
+        # Weekends and late evenings wait for the next weekday, so a Friday
+        # evening ping goes on Monday, not Saturday.
         target = _next_weekday_at_nine(local)
-    elif local.hour >= QUIET_FROM:
-        target = _at_nine(local + timedelta(days=1))
     elif local.hour < QUIET_UNTIL:
         target = _at_nine(local)
     else:
