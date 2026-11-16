@@ -25,7 +25,7 @@ def next_send_time(moment: datetime) -> datetime:
     if local.weekday() >= 5:
         target = _next_weekday_at_nine(local)
     elif local.hour >= QUIET_FROM:
-        target = _at_nine(local + timedelta(days=1))
+        target = _next_weekday_at_nine(local)   # Fri night waits for Monday
     elif local.hour < QUIET_UNTIL:
         target = _at_nine(local)
     else:
