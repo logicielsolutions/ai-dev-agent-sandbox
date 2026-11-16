@@ -12,5 +12,5 @@ def to_utc(local: datetime) -> datetime:
 
 
 def day_of(moment: datetime) -> date:
-    """The calendar day a moment falls on, in IST."""
-    return moment.date()
+    """The calendar day an aware moment falls on, in IST."""
+    return moment.astimezone(IST).date()
