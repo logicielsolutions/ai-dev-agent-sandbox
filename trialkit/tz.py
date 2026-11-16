@@ -17,7 +17,7 @@ def day_of(moment: datetime) -> date:
 
 
 def to_ist(moment: datetime) -> datetime:
-    """An aware datetime shown in IST."""
+    """The same instant as an aware datetime, shown in IST."""
     if moment.tzinfo is None:
         raise ValueError("expected an aware datetime")
-    return moment.replace(tzinfo=IST)
+    return moment.astimezone(IST)
