@@ -14,3 +14,10 @@ def to_utc(local: datetime) -> datetime:
 def day_of(moment: datetime) -> date:
     """The calendar day a moment falls on, in IST."""
     return moment.date()
+
+
+def to_ist(moment: datetime) -> datetime:
+    """An aware datetime shown in IST."""
+    if moment.tzinfo is None:
+        raise ValueError("expected an aware datetime")
+    return moment.replace(tzinfo=IST)
