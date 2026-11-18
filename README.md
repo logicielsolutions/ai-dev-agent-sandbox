@@ -6,9 +6,16 @@ Nothing here ships anywhere.
 `trialkit` is a toy version of the AI Team Board's helpers: board tickets, IST time zone
 handling and reminders.
 
+## Running the tests
+
+You need Python 3.11 or newer (`requires-python = ">=3.11"` in `pyproject.toml`).
+From the repo root:
+
 ```sh
 python -m pip install pytest
 python -m pytest
 ```
+
+pytest picks up the tests in `tests/` (set in `pyproject.toml`).
 
 Rules for agents: work on a branch, open a draft PR, never push to `main` (it is protected).
