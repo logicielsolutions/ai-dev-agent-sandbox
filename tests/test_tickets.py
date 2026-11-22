@@ -27,3 +27,22 @@ def test_add_working_days_midweek():
 def test_add_working_days_into_next_week():
     # Thu 19 Nov + 2 -> Mon 23 Nov
     assert add_working_days(date(2026, 11, 19), 2) == date(2026, 11, 23)
+
+
+def test_add_working_days_from_friday_skips_the_weekend():
+    # Fri 20 Nov + 2 -> Mon 23, Tue 24 Nov
+    assert add_working_days(date(2026, 11, 20), 2) == date(2026, 11, 24)
+
+
+def test_add_working_days_across_two_weekends():
+    # Fri 20 Nov + 6 -> Mon 30 Nov
+    assert add_working_days(date(2026, 11, 20), 6) == date(2026, 11, 30)
+
+
+def test_add_working_days_from_a_weekend_day():
+    # Sat 21 Nov + 1 -> Mon 23 Nov
+    assert add_working_days(date(2026, 11, 21), 1) == date(2026, 11, 23)
+
+
+def test_add_zero_working_days():
+    assert add_working_days(date(2026, 11, 18), 0) == date(2026, 11, 18)

@@ -1,15 +1,20 @@
 """Response-time targets (SLA) for board tickets, in working days."""
 from datetime import date, datetime
 
-from . import tz
 from .tickets import add_working_days
 
 SLA_DAYS = {"code": 3, "research": 2, "docs": 2, "ops": 1}
 
 
 def opened_on(opened_at: datetime) -> date:
-    """The working day a ticket was opened. `opened_at` is naive IST wall-clock time."""
-    return tz.to_utc(opened_at).date()
+    """The working day a ticket was opened. `opened_at` is naive IST wall-clock time.
+
+    The day is the IST calendar day. Converting to UTC first would move anything
+    opened before 05:30 IST onto the previous day.
+    """
+    if opened_at.tzinfo is not None:
+        raise ValueError("expected a naive IST datetime")
+    return opened_at.date()
 
 
 def due_date(opened_at: datetime, sla_days: int) -> date:
