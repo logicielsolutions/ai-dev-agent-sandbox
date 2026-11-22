@@ -26,7 +26,9 @@ def working_days_between(start: date, end: date) -> int:
 
 def add_working_days(start: date, n: int) -> date:
     """The date `n` working days (Mon-Fri) after `start`, not counting `start` itself."""
-    d = start + timedelta(days=n)
-    while d.weekday() >= 5:
+    d = start
+    while n > 0:
         d += timedelta(days=1)
+        if d.weekday() < 5:
+            n -= 1
     return d
